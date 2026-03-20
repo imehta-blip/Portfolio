@@ -91,26 +91,17 @@ img { display: block; max-width: 100%; }
 
 .dot {
   display: inline-block;
-  width: 11px;
-  height: 11px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
   background: #4ade80;
-  box-shadow: 0 0 6px 2px rgba(74, 222, 128, 0.9);
-  animation: dotGlow 1.2s ease-in-out infinite;
+  animation: dotBlink 1.8s ease-in-out infinite;
 }
 
-@keyframes dotGlow {
-  0%, 100% {
-    background: #4ade80;
-    box-shadow: 0 0 4px 2px rgba(74, 222, 128, 0.9), 0 0 10px 4px rgba(74, 222, 128, 0.5);
-    transform: scale(1);
-  }
-  50% {
-    background: #86efac;
-    box-shadow: 0 0 8px 4px rgba(74, 222, 128, 1), 0 0 18px 8px rgba(74, 222, 128, 0.4);
-    transform: scale(1.25);
-  }
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
 }
 
 .lets-talk-btn {
@@ -208,9 +199,9 @@ img { display: block; max-width: 100%; }
 .tagline-verb-wrapper {
   display: inline-block;
   overflow: hidden;
-  height: 1.25em;
-  vertical-align: middle;
-  min-width: 160px;
+  height: 1.2em;
+  vertical-align: baseline;
+  width: max-content;
 }
 
 .tagline-verb-scroll {
@@ -221,10 +212,11 @@ img { display: block; max-width: 100%; }
 
 .tagline-verb {
   display: block;
-  height: 1.25em;
-  line-height: 1.25em;
+  height: 1.2em;
+  line-height: 1.2em;
   font-weight: 700;
   flex-shrink: 0;
+  text-align: center;
 }
 
 .tv-design { color: #2B4DFF; }
@@ -232,9 +224,9 @@ img { display: block; max-width: 100%; }
 .tv-ship   { color: #A9D81B; }
 
 @keyframes scrollVerbs {
-  0%,  25%  { transform: translateY(0); }
-  33%, 58%  { transform: translateY(-33.333%); }
-  66%, 91%  { transform: translateY(-66.667%); }
+  0%,  28%  { transform: translateY(0); }
+  33%, 61%  { transform: translateY(calc(-100% / 3)); }
+  66%, 94%  { transform: translateY(calc(-200% / 3)); }
   100%      { transform: translateY(0); }
 }
 
@@ -329,27 +321,46 @@ img { display: block; max-width: 100%; }
 .tk-img-4 { left: 258px; top: 261px; transform: rotate(8.5deg);  transition-delay: 0.12s; }
 .tk-img-5 { left: 175px; top: 247px; transform: rotate(11.25deg);transition-delay: 0.04s; }
 
-/* ── Spread positions (fan-out after scroll trigger) ── */
+/* ── Spread positions (fan-out on hover) ── */
 .toolkit-spread .tk-img-1 { left: 233px; top: 64px;  transform: rotate(-8deg);   }
 .toolkit-spread .tk-img-2 { left: 93px;  top: 66px;  transform: rotate(18deg);   }
 .toolkit-spread .tk-img-3 { left: 58px;  top: 160px; transform: rotate(-27deg);  }
 .toolkit-spread .tk-img-4 { left: 264px; top: 188px; transform: rotate(8.5deg);  }
 .toolkit-spread .tk-img-5 { left: 170px; top: 148px; transform: rotate(11.25deg);}
 
-
-.toolkit-label-bubble {
+/* ── Glass folder (tab + body) matching Figma shape exactly ── */
+.toolkit-folder {
   position: absolute;
-  bottom: 0;
-  left: 80px;
-  background: rgba(255,255,255,0.35);
-  border-radius: 0 20px 20px 20px;
-  padding: 12px 40px;
-  backdrop-filter: blur(8px);
+  left: 108px;
+  top: 240px;
+  width: 214px;
 }
-.toolkit-label-bubble span {
+
+.toolkit-folder-tab {
+  width: 120px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 25px 80px 0 0;
+}
+
+.toolkit-folder-body {
+  width: 214px;
+  height: 148px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 0 25px 25px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolkit-folder-body span {
   font-family: 'Poppins', sans-serif;
-  font-size: 36px;
-  color: rgba(0,0,0,0.8);
+  font-size: 32px;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 /* Ethos copy */

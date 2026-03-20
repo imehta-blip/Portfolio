@@ -1,15 +1,14 @@
-/* ─── TOOLKIT FAN-OUT on scroll ─── */
+/* ─── TOOLKIT FAN-OUT on hover (retracts on mouse-leave) ─── */
+const toolkitVisual  = document.querySelector('.toolkit-visual');
 const toolkitCluster = document.querySelector('.toolkit-img-cluster');
-if (toolkitCluster) {
-  const tkObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('toolkit-spread');
-        tkObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  tkObserver.observe(toolkitCluster);
+
+if (toolkitVisual && toolkitCluster) {
+  toolkitVisual.addEventListener('mouseenter', () => {
+    toolkitCluster.classList.add('toolkit-spread');
+  });
+  toolkitVisual.addEventListener('mouseleave', () => {
+    toolkitCluster.classList.remove('toolkit-spread');
+  });
 }
 
 
