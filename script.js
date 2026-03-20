@@ -47,13 +47,16 @@ if (toolkitVisual && toolkitCluster) {
 /* ─── PROJECT CAROUSELS ─── */
 document.querySelectorAll('.project-carousel-wrapper').forEach(wrapper => {
   const carousel = wrapper.querySelector('.project-carousel');
-  const slides = carousel.querySelectorAll('.carousel-slide');
-  const total = slides.length;
-  let current = 0;
+  const slides   = carousel.querySelectorAll('.carousel-slide');
+  const total    = slides.length;
+  let current    = 0;
+
+  function slideW() { return wrapper.offsetWidth; }
 
   function goTo(idx) {
     current = (idx + total) % total;
-    carousel.style.transform = `translateX(-${current * 100}%)`;
+    slides.forEach(s => { s.style.width = slideW() + 'px'; });
+    carousel.style.transform = `translateX(-${current * slideW()}px)`;
   }
 
   wrapper.querySelector('.carousel-btn.prev')?.addEventListener('click', () => goTo(current - 1));
@@ -66,27 +69,11 @@ document.querySelectorAll('.project-carousel-wrapper').forEach(wrapper => {
     const dx = e.changedTouches[0].clientX - startX;
     if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
   });
+
+  // Init: set pixel widths and reset position
+  goTo(0);
+  window.addEventListener('resize', () => goTo(current));
 });
-
-// Fix carousel slide widths on resize
-function fixCarouselSizes() {
-  document.querySelectorAll('.project-carousel-wrapper').forEach(wrapper => {
-    const w = wrapper.offsetWidth;
-    wrapper.querySelectorAll('.carousel-slide').forEach(slide => {
-      slide.style.width = w + 'px';
-    });
-    // re-apply current position
-    const carousel = wrapper.querySelector('.project-carousel');
-    // read current index from transform
-    const match = (carousel.style.transform || '').match(/-?([\d.]+)%/);
-    if (match) {
-      const pct = parseFloat(match[0]);
-      // pct is already set correctly as percentage, browser handles it
-    }
-  });
-}
-
-window.addEventListener('resize', fixCarouselSizes);
 
 
 /* ─── SCROLL REVEAL ─── */
