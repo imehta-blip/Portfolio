@@ -1,41 +1,16 @@
-/* ─── VERB CYCLING in hero tagline ─── */
-const verbs = [
-  { text: 'Design', color: '#2B4DFF' },
-  { text: 'Build',  color: '#F75A0E' },
-  { text: 'Ship',   color: '#A9D81B' },
-];
-
-let verbIndex = 0;
-const verbEl = document.getElementById('verbCycle');
-
-function cycleVerb() {
-  if (!verbEl) return;
-  // fade out
-  verbEl.style.transition = 'opacity 0.35s, transform 0.35s';
-  verbEl.style.opacity = '0';
-  verbEl.style.transform = 'translateY(-16px)';
-
-  setTimeout(() => {
-    verbIndex = (verbIndex + 1) % verbs.length;
-    verbEl.textContent = verbs[verbIndex].text;
-    verbEl.style.color = verbs[verbIndex].color;
-    verbEl.style.transform = 'translateY(16px)';
-
-    // fade in
-    requestAnimationFrame(() => {
-      verbEl.style.opacity = '1';
-      verbEl.style.transform = 'translateY(0)';
+/* ─── TOOLKIT FAN-OUT on scroll ─── */
+const toolkitCluster = document.querySelector('.toolkit-img-cluster');
+if (toolkitCluster) {
+  const tkObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('toolkit-spread');
+        tkObserver.unobserve(entry.target);
+      }
     });
-  }, 350);
+  }, { threshold: 0.3 });
+  tkObserver.observe(toolkitCluster);
 }
-
-// set initial color
-if (verbEl) {
-  verbEl.style.color = verbs[0].color;
-  verbEl.style.fontWeight = '700';
-}
-
-setInterval(cycleVerb, 2200);
 
 
 /* ─── PROJECT CAROUSELS ─── */

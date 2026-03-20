@@ -91,17 +91,26 @@ img { display: block; max-width: 100%; }
 
 .dot {
   display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: #4ade80;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   flex-shrink: 0;
-  animation: dotPulse 1.5s ease-in-out infinite;
+  background: #4ade80;
+  box-shadow: 0 0 6px 2px rgba(74, 222, 128, 0.9);
+  animation: dotGlow 1.2s ease-in-out infinite;
 }
 
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
-  50%       { opacity: 0.6; box-shadow: 0 0 0 4px rgba(74, 222, 128, 0); }
+@keyframes dotGlow {
+  0%, 100% {
+    background: #4ade80;
+    box-shadow: 0 0 4px 2px rgba(74, 222, 128, 0.9), 0 0 10px 4px rgba(74, 222, 128, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    background: #86efac;
+    box-shadow: 0 0 8px 4px rgba(74, 222, 128, 1), 0 0 18px 8px rgba(74, 222, 128, 0.4);
+    transform: scale(1.25);
+  }
 }
 
 .lets-talk-btn {
@@ -199,25 +208,35 @@ img { display: block; max-width: 100%; }
 .tagline-verb-wrapper {
   display: inline-block;
   overflow: hidden;
-  height: 1.3em;
+  height: 1.25em;
   vertical-align: middle;
   min-width: 160px;
-  text-align: left;
+}
+
+.tagline-verb-scroll {
+  display: flex;
+  flex-direction: column;
+  animation: scrollVerbs 6s ease-in-out infinite;
 }
 
 .tagline-verb {
-  display: inline-block;
+  display: block;
+  height: 1.25em;
+  line-height: 1.25em;
   font-weight: 700;
-  animation: cycleVerb 3s steps(1) infinite;
+  flex-shrink: 0;
 }
 
-@keyframes cycleVerb {
-  0%   { color: var(--blue);        content: 'Design'; }
-  33%  { color: var(--orange-dark); content: 'Build';  }
-  66%  { color: var(--green);       content: 'Ship';   }
-}
+.tv-design { color: #2B4DFF; }
+.tv-build  { color: #F75A0E; }
+.tv-ship   { color: #A9D81B; }
 
-/* We handle verb color change via JS for reliability */
+@keyframes scrollVerbs {
+  0%,  25%  { transform: translateY(0); }
+  33%, 58%  { transform: translateY(-33.333%); }
+  66%, 91%  { transform: translateY(-66.667%); }
+  100%      { transform: translateY(0); }
+}
 
 .hero-links {
   display: flex;
@@ -278,37 +297,45 @@ img { display: block; max-width: 100%; }
   flex-shrink: 0;
   position: relative;
   width: 420px;
-  height: 440px;
+  height: 460px;
 }
 
 .toolkit-img-cluster {
   position: relative;
   width: 100%;
-  height: 360px;
+  height: 370px;
 }
 
 .tk-img {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 103px;
+  height: 103px;
   object-fit: contain;
-  border-radius: 20px;
+  border-radius: 10px;
+  border: 5px solid var(--orange);
   background: white;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-  padding: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  padding: 6px;
+  transition:
+    top  0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+    left 0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.tk-img-1 { left: 20px;  top: 30px;  animation: float1 3.2s ease-in-out infinite; }
-.tk-img-2 { left: 155px; top: 10px;  animation: float2 3.8s ease-in-out infinite 0.6s; }
-.tk-img-3 { left: 295px; top: 30px;  animation: float3 3.4s ease-in-out infinite 1.2s; }
-.tk-img-4 { left: 70px;  top: 175px; animation: float4 3.6s ease-in-out infinite 0.3s; }
-.tk-img-5 { left: 225px; top: 170px; animation: float5 4.0s ease-in-out infinite 0.9s; }
+/* ── Clustered start positions (all icons piled at bottom) ── */
+.tk-img-1 { left: 226px; top: 236px; transform: rotate(-8deg);   transition-delay: 0s; }
+.tk-img-2 { left: 130px; top: 240px; transform: rotate(0deg);    transition-delay: 0.08s; }
+.tk-img-3 { left: 77px;  top: 252px; transform: rotate(-38deg);  transition-delay: 0.16s; }
+.tk-img-4 { left: 258px; top: 261px; transform: rotate(8.5deg);  transition-delay: 0.12s; }
+.tk-img-5 { left: 175px; top: 247px; transform: rotate(11.25deg);transition-delay: 0.04s; }
 
-@keyframes float1 { 0%,100%{transform:rotate(-10deg) translateY(0)}  50%{transform:rotate(-10deg) translateY(-12px)} }
-@keyframes float2 { 0%,100%{transform:rotate(3deg)  translateY(0)}  50%{transform:rotate(3deg)  translateY(-14px)} }
-@keyframes float3 { 0%,100%{transform:rotate(9deg)  translateY(0)}  50%{transform:rotate(9deg)  translateY(-10px)} }
-@keyframes float4 { 0%,100%{transform:rotate(-5deg) translateY(0)}  50%{transform:rotate(-5deg) translateY(-13px)} }
-@keyframes float5 { 0%,100%{transform:rotate(7deg)  translateY(0)}  50%{transform:rotate(7deg)  translateY(-11px)} }
+/* ── Spread positions (fan-out after scroll trigger) ── */
+.toolkit-spread .tk-img-1 { left: 233px; top: 64px;  transform: rotate(-8deg);   }
+.toolkit-spread .tk-img-2 { left: 93px;  top: 66px;  transform: rotate(18deg);   }
+.toolkit-spread .tk-img-3 { left: 58px;  top: 160px; transform: rotate(-27deg);  }
+.toolkit-spread .tk-img-4 { left: 264px; top: 188px; transform: rotate(8.5deg);  }
+.toolkit-spread .tk-img-5 { left: 170px; top: 148px; transform: rotate(11.25deg);}
+
 
 .toolkit-label-bubble {
   position: absolute;
