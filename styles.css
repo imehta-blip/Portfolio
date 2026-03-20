@@ -207,7 +207,7 @@ img { display: block; max-width: 100%; }
 .tagline-verb-scroll {
   display: flex;
   flex-direction: column;
-  animation: scrollVerbs 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .tagline-verb {
@@ -223,12 +223,7 @@ img { display: block; max-width: 100%; }
 .tv-build  { color: #F75A0E; }
 .tv-ship   { color: #A9D81B; }
 
-@keyframes scrollVerbs {
-  0%,  28%  { transform: translateY(0); }
-  33%, 61%  { transform: translateY(calc(-100% / 3)); }
-  66%, 94%  { transform: translateY(calc(-200% / 3)); }
-  100%      { transform: translateY(0); }
-}
+/* scrollVerbs is now JS-driven for seamless loop */
 
 .hero-links {
   display: flex;
@@ -400,47 +395,71 @@ img { display: block; max-width: 100%; }
 
 .strength-card {
   position: relative;
-  border-radius: 20px;
-  overflow: hidden;
   height: 440px;
-  cursor: default;
+  cursor: pointer;
+  perspective: 1200px;
 }
 
-.strength-card-bg {
-  position: absolute;
-  inset: 0;
-}
-
-.strength-bg-img {
+.strength-card-inner {
+  position: relative;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transform: scaleY(-1) rotate(180deg);
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-.strength-card-overlay {
+.strength-card:hover .strength-card-inner {
+  transform: rotateY(180deg);
+}
+
+.strength-card-front,
+.strength-card-back {
   position: absolute;
   inset: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Front — Figma radial gradient (orange centre → white edge) + text */
+.strength-card-front {
+  background: radial-gradient(ellipse at center,
+    rgba(255,165,55,0.9)   0%,
+    rgba(255,187,105,0.925) 25%,
+    rgba(255,210,155,0.95)  50%,
+    rgba(255,232,205,0.975) 75%,
+    rgba(255,255,255,1)     100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 40px 32px;
-  background: radial-gradient(ellipse at center, rgba(255,165,55,0.9) 0%, rgba(255,255,255,1) 100%);
 }
 
-.strength-card-overlay h3 {
+.strength-card-front h3 {
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(20px, 1.75vw, 30px);
+  font-size: clamp(20px, 1.75vw, 32px);
   font-weight: 400;
   color: var(--black);
 }
 
-.strength-card-overlay p {
+.strength-card-front p {
   font-family: 'Inter', sans-serif;
   font-size: clamp(13px, 1vw, 20px);
   color: var(--black);
   line-height: 1.5;
   text-align: center;
+}
+
+/* Back — full bleed photo */
+.strength-card-back {
+  transform: rotateY(180deg);
+}
+
+.strength-card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ─── WORK SECTION ─── */

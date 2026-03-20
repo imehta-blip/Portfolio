@@ -1,3 +1,35 @@
+/* ─── VERB SEAMLESS LOOP (Design → Build → Ship → Design …) ─── */
+// Stack has 4 items: Design, Build, Ship, Design-clone
+// Each item = 25% of total height. JS resets instantly after reaching clone.
+(function () {
+  const scroll = document.getElementById('verbScroll');
+  if (!scroll) return;
+
+  const ITEMS   = 4;      // 3 real + 1 Design clone at end
+  const STEP    = 100 / ITEMS; // 25% per item
+  const PAUSE   = 2000;   // ms each word is shown
+  const SLIDE   = 550;    // ms for the slide transition
+
+  let step = 0;
+
+  function advance() {
+    step++;
+    scroll.style.transition = `transform ${SLIDE}ms ease-in-out`;
+    scroll.style.transform  = `translateY(-${step * STEP}%)`;
+
+    // After sliding to the Design clone, instant-reset to real Design
+    if (step === ITEMS - 1) {
+      setTimeout(() => {
+        scroll.style.transition = 'none';
+        scroll.style.transform  = 'translateY(0%)';
+        step = 0;
+      }, SLIDE + 20);
+    }
+  }
+
+  setInterval(advance, PAUSE + SLIDE);
+})();
+
 /* ─── TOOLKIT FAN-OUT on hover (retracts on mouse-leave) ─── */
 const toolkitVisual  = document.querySelector('.toolkit-visual');
 const toolkitCluster = document.querySelector('.toolkit-img-cluster');
