@@ -38,7 +38,7 @@ img { display: block; max-width: 100%; }
   top: 40px;
   left: 40px;
 }
-.section-label.right { left: auto; right: 40px; }
+.section-label.right { left: 56%; right: auto; }
 .section-label.dark { color: var(--black); }
 
 /* ─── HEADER ─── */
@@ -309,19 +309,19 @@ img { display: block; max-width: 100%; }
     transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ── Default: spread/fanned above folder (matches Figma) ── */
-.tk-img-1 { left: 233px; top: 64px;  transform: rotate(-8deg);   transition-delay: 0s; }
-.tk-img-2 { left: 93px;  top: 66px;  transform: rotate(18deg);   transition-delay: 0.08s; }
-.tk-img-3 { left: 58px;  top: 160px; transform: rotate(-27deg);  transition-delay: 0.16s; }
-.tk-img-4 { left: 264px; top: 188px; transform: rotate(8.5deg);  transition-delay: 0.12s; }
-.tk-img-5 { left: 170px; top: 148px; transform: rotate(11.25deg);transition-delay: 0.04s; }
+/* ── Default: cards collapsed/stacked into folder ── */
+.tk-img-1 { left: 226px; top: 256px; transform: rotate(-8deg);   transition-delay: 0s; }
+.tk-img-2 { left: 130px; top: 260px; transform: rotate(0deg);    transition-delay: 0.08s; }
+.tk-img-3 { left: 77px;  top: 272px; transform: rotate(-38deg);  transition-delay: 0.16s; }
+.tk-img-4 { left: 258px; top: 281px; transform: rotate(8.5deg);  transition-delay: 0.12s; }
+.tk-img-5 { left: 175px; top: 267px; transform: rotate(11.25deg);transition-delay: 0.04s; }
 
-/* ── Hover: cluster together into folder ── */
-.toolkit-spread .tk-img-1 { left: 226px; top: 256px; transform: rotate(-8deg);   }
-.toolkit-spread .tk-img-2 { left: 130px; top: 260px; transform: rotate(0deg);    }
-.toolkit-spread .tk-img-3 { left: 77px;  top: 272px; transform: rotate(-38deg);  }
-.toolkit-spread .tk-img-4 { left: 258px; top: 281px; transform: rotate(8.5deg);  }
-.toolkit-spread .tk-img-5 { left: 175px; top: 267px; transform: rotate(11.25deg);}
+/* ── Hover: fan out above folder ── */
+.toolkit-spread .tk-img-1 { left: 233px; top: 64px;  transform: rotate(-8deg);   }
+.toolkit-spread .tk-img-2 { left: 93px;  top: 66px;  transform: rotate(18deg);   }
+.toolkit-spread .tk-img-3 { left: 58px;  top: 160px; transform: rotate(-27deg);  }
+.toolkit-spread .tk-img-4 { left: 264px; top: 188px; transform: rotate(8.5deg);  }
+.toolkit-spread .tk-img-5 { left: 170px; top: 148px; transform: rotate(11.25deg);}
 
 /* ── Glass folder (tab + body) matching Figma shape exactly ── */
 .toolkit-folder {
@@ -361,6 +361,7 @@ img { display: block; max-width: 100%; }
 /* Ethos copy */
 .ethos-copy {
   flex: 1;
+  max-width: 580px;
   display: flex;
   flex-direction: column;
   gap: 28px;
